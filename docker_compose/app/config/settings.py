@@ -125,7 +125,8 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-STATIC_ROOT = BASE_DIR / STATIC_URL
+STATIC_PATH = os.environ.get("STATIC_PATH", "./")
+STATIC_ROOT = Path(STATIC_PATH)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
