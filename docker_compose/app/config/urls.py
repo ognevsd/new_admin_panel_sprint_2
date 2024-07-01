@@ -21,6 +21,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include("movies.api.urls")),
 ]
 
 if DEBUG:
