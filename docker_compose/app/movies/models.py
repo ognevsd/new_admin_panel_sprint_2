@@ -1,28 +1,19 @@
-import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-# Create your models here.
-
 
 from .mixins import UUIDMixin, TimeStampedMixin
 
 
 class Genre(UUIDMixin, TimeStampedMixin):
-    # Первым аргументом обычно идёт человекочитаемое название поля
     name = models.CharField(_("name"), max_length=255)
-    # blank=True делает поле необязательным для заполнения.
     description = models.TextField(_("description"), blank=True)
 
     def __str__(self) -> str:
         return self.name
 
     class Meta:
-        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
-        # классе модели
         db_table = 'content"."genre'
-        # Следующие два поля отвечают за название модели в интерфейсе
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
 
@@ -55,11 +46,6 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     type = models.CharField(_("type"), max_length=255, choices=Types.choices)
     genre = models.ManyToManyField(Genre, through="GenreFilmwork")
     person = models.ManyToManyField(Person, through="PersonFilmwork")
-    # certificate = models.CharField(
-    #     _("certificate"), max_length=512, blank=True
-    # )
-    # Параметр upload_to указывает, в какой подпапке будут храниться загружемые
-    # файлы. Базовая папка указана в файле настроек как MEDIA_ROOT
     file_path = models.FileField(
         _("file"), blank=True, null=True, upload_to="movies/"
     )
