@@ -62,8 +62,6 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = self.get_queryset()
-        page_number = self.request.GET.get("page")
-        print(page_number)
         paginator, page, queryset, is_paginated = self.paginate_queryset(
             queryset, self.paginate_by
         )
