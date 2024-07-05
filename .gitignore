@@ -3,6 +3,8 @@
 
 # Other env files
 *.env
+# Icluding example env files
+!*.env.example
 
 ### Django ###
 *.log
